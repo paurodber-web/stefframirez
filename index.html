@@ -365,6 +365,7 @@
             text-align: center;
             opacity: 0.7;
             transition: opacity 0.4s ease;
+            width: 180px;
         }
 
         .service-item:hover {
@@ -372,11 +373,16 @@
         }
 
         .service-icon {
-            font-size: 1.3rem;
+            width: 0.65rem;
+            height: 0.65rem;
             margin-bottom: 0.5rem;
+            margin-left: auto;
+            margin-right: auto;
             display: block;
-            filter: grayscale(0.3);
             color: var(--gold-light);
+            background: currentColor;
+            transform: rotate(45deg);
+            border-radius: 0.05rem;
         }
 
         .service-name {
@@ -423,8 +429,36 @@
         }
 
         /* ── Responsive ── */
+        @media (max-width: 900px) {
+            .content {
+                max-width: 100%;
+                padding: 1.75rem;
+            }
+
+            .brand-name {
+                font-size: clamp(2.2rem, 8vw, 3.8rem);
+                letter-spacing: 0.18em;
+                white-space: normal;
+            }
+
+            .brand-sub {
+                letter-spacing: 0.32em;
+            }
+        }
+
         @media (max-width: 600px) {
             .content { padding: 1.5rem; }
+
+            .brand-name {
+                font-size: clamp(2rem, 11vw, 3rem);
+                letter-spacing: 0.12em;
+                line-height: 1.05;
+            }
+
+            .brand-sub {
+                font-size: 0.62rem;
+                letter-spacing: 0.22em;
+            }
 
             .countdown { gap: 1rem; }
 
@@ -449,7 +483,19 @@
             }
 
             .services {
-                gap: 1.5rem;
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 1.35rem 1rem;
+                align-items: start;
+            }
+
+            .service-item {
+                width: auto;
+            }
+
+            .service-name {
+                font-size: 0.64rem;
+                letter-spacing: 0.16em;
             }
 
             .deco-circle-1 { width: 300px; height: 300px; top: -100px; right: -80px; }
@@ -529,19 +575,19 @@
             <!-- Services Preview -->
             <div class="services">
                 <div class="service-item cascade-item" style="--cascade-delay: 2.74s;">
-                    <span class="service-icon">♦</span>
+                    <span class="service-icon" aria-hidden="true"></span>
                     <span class="service-name">Asesoria 1 : 1</span>
                 </div>
                 <div class="service-item cascade-item" style="--cascade-delay: 2.92s;">
-                    <span class="service-icon">♦</span>
+                    <span class="service-icon" aria-hidden="true"></span>
                     <span class="service-name">Diseño de Estilo</span>
                 </div>
                 <div class="service-item cascade-item" style="--cascade-delay: 3.1s;">
-                    <span class="service-icon">♦</span>
+                    <span class="service-icon" aria-hidden="true"></span>
                     <span class="service-name">Personal Shopper</span>
                 </div>
                 <div class="service-item cascade-item" style="--cascade-delay: 3.28s;">
-                    <span class="service-icon">♦</span>
+                    <span class="service-icon" aria-hidden="true"></span>
                     <span class="service-name">Detox de Armario</span>
                 </div>
             </div>
