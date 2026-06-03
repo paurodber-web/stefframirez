@@ -337,19 +337,43 @@
             background: var(--gold-light);
         }
 
+        .subscribe-form button.is-submitting {
+            background: #a8845d;
+            color: rgba(255, 255, 255, 0.92);
+            transform: translateY(1px);
+            opacity: 0.92;
+        }
+
+        .subscribe-form button:disabled {
+            cursor: default;
+        }
+
         /* ── Success Message ── */
         .success-msg {
-            display: none;
+            position: fixed;
+            left: 50%;
+            bottom: 2rem;
+            transform: translateX(-50%) translateY(16px);
+            min-width: min(90vw, 320px);
+            padding: 0.95rem 1.4rem;
+            border: 1px solid rgba(245, 230, 211, 0.24);
+            background: rgba(61, 51, 48, 0.82);
+            box-shadow: 0 16px 40px rgba(44, 36, 32, 0.2);
+            backdrop-filter: blur(10px);
             font-family: 'Cormorant Garamond', serif;
             font-size: 1.1rem;
             font-style: italic;
             color: var(--gold-light);
-            margin-bottom: 3rem;
-            animation: fadeInUp 0.6s ease-out;
+            text-align: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s ease, transform 0.35s ease;
+            z-index: 5;
         }
 
         .success-msg.show {
-            display: block;
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
         }
 
         /* ── Services Preview ── */
@@ -568,7 +592,7 @@
                 <button type="submit">Avisarme</button>
             </form>
 
-            <p class="success-msg cascade-item" id="successMsg" style="--cascade-delay: 2.56s;">
+            <p class="success-msg" id="successMsg">
                 ✦ Gracias, te avisaremos cuando estemos listas ✦
             </p>
 
@@ -633,23 +657,33 @@
         // ── Form Handling ──
         const form = document.getElementById('subscribeForm');
         const successMsg = document.getElementById('successMsg');
+        const submitButton = form.querySelector('button[type="submit"]');
+        const defaultButtonLabel = submitButton.textContent;
 
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             const email = document.getElementById('emailInput').value;
 
             // Simulate submission
-            form.style.display = 'none';
-            document.querySelector('.form-intro').style.display = 'none';
-            successMsg.classList.add('show');
+            submitButton.disabled = true;
+            submitButton.classList.add('is-submitting');
+            submitButton.textContent = 'Enviando';
+
+            setTimeout(() => {
+                successMsg.classList.add('show');
+            }, 620);
+
+            setTimeout(() => {
+                submitButton.disabled = false;
+                submitButton.classList.remove('is-submitting');
+                submitButton.textContent = defaultButtonLabel;
+            }, 760);
 
             // Reset after 5 seconds
             setTimeout(() => {
-                form.style.display = 'flex';
-                document.querySelector('.form-intro').style.display = 'block';
                 successMsg.classList.remove('show');
                 document.getElementById('emailInput').value = '';
-            }, 5000);
+            }, 5620);
         });
 
         // ── Subtle parallax on mouse move ──
